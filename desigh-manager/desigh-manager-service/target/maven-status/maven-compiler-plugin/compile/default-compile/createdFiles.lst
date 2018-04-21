@@ -1,0 +1,12 @@
+com\yaorange\service\Impl\DagangServiceImpl.class
+com\yaorange\service\Impl\UserServiceImpl.class
+com\yaorange\service\Impl\StudentServiceImpl.class
+com\yaorange\service\UserService.class
+com\yaorange\service\Impl\FileServiceImpl.class
+com\yaorange\service\Impl\KejianServiceImpl.class
+com\yaorange\service\ShipingService.class
+com\yaorange\service\DagangService.class
+com\yaorange\service\FileService.class
+com\yaorange\service\KejianService.class
+com\yaorange\service\Impl\ShipingServiceImpl.class
+com\yaorange\service\StudentService.class
