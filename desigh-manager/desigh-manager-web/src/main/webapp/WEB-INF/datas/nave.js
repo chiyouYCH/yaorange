@@ -39,5 +39,39 @@ var navs = [ {
         				"href": "user-list"
         			}
         		]
+        	},{
+        		"title": "学习管理",
+        		"icon": "&#xe614;",
+        		"spread": false,
+        		"children": [
+        			{
+        				"title": "知识点",
+        				"icon": "fa-user",
+        				"href": "user-list"
+        			}, {
+        				"title": "面试题",
+        				"icon": "fa-wrench",
+        				"href": "shiping-list"
+        			}
+        		]
+        	},{
+        		"title": "面试管理",
+        		"icon": "&#xe614;",
+        		"spread": false,
+        		"children": [
+        			{
+        				"title": "面试记录",
+        				"icon": "fa-user",
+        				"href": "user-list"
+        			}, {
+        				"title": "面试情况",
+        				"icon": "fa-wrench",
+        				"href": "shiping-list"
+        			}, {
+        				"title": "录取情况",
+        				"icon": "fa-wrench",
+        				"href": "shiping-list"
+        			}
+        		]
         	}
         ];

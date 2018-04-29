@@ -13,24 +13,27 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">密码</label>
 			<div class="layui-input-inline">
-				<input type="text" name="password" lay-verify="password" autocomplete="off" class="layui-input">
+				<input type="text" name="password" lay-verify="password"
+					autocomplete="off" class="layui-input">
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">联系方式</label>
 			<div class="layui-input-inline">
-				 <input type="tel" name="phone" lay-verify="phone" autocomplete="off" class="layui-input">	
+				<input type="tel" name="phone" lay-verify="phone" autocomplete="off"
+					class="layui-input">
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">邮箱</label>
 			<div class="layui-input-inline">
-				<input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+				<input type="text" name="email" lay-verify="email"
+					autocomplete="off" class="layui-input">
 			</div>
-			
+
 		</div>
 		<button lay-filter="add" lay-submit style="display: none;"></button>
 	</form>
 
-	
+
 </div>

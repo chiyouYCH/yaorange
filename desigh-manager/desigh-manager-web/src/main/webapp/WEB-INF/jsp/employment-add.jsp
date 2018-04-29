@@ -16,40 +16,45 @@
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">就业单位</label>
-			<div class="layui-input-inline" style="width:100px;">
+			<div class="layui-input-inline" style="width: 100px;">
 				<input type="text" name="employment" required lay-verify="required"
 					autocomplete="off" class="layui-input">
 			</div>
 			<label class="layui-form-label">地点</label>
-			<div class="layui-input-inline" style="width:100px;">
-				<input type="text" name="local" lay-verify="required" autocomplete="off" class="layui-input">
+			<div class="layui-input-inline" style="width: 100px;">
+				<input type="text" name="local" lay-verify="required"
+					autocomplete="off" class="layui-input">
 			</div>
-			
+
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">HR联系人</label>
-			<div class="layui-input-inline" style="width:100px;">
-				<input type="text" name="hrname" lay-verify="" autocomplete="off" placeholder="" class="layui-input">
+			<div class="layui-input-inline" style="width: 100px;">
+				<input type="text" name="hrname" lay-verify="" autocomplete="off"
+					placeholder="" class="layui-input">
 			</div>
 			<label class="layui-form-label">HR联系方式</label>
-			<div class="layui-input-inline" style="width:100px;">
-				 <input type="tel" name="hrtelphone" lay-verify="required|phone" autocomplete="off" class="layui-input">	
+			<div class="layui-input-inline" style="width: 100px;">
+				<input type="tel" name="hrtelphone" lay-verify="required|phone"
+					autocomplete="off" class="layui-input">
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">就职时间</label>
-			<div class="layui-input-inline" style="width:100px;">
-				 <input type="text" name="inaugurationTime" lay-verify="" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this})">
+			<div class="layui-input-inline" style="width: 100px;">
+				<input type="text" name="inaugurationTime" lay-verify=""
+					placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input"
+					onclick="layui.laydate({elem: this})">
 			</div>
 			<label class="layui-form-label">试用工资</label>
-			<div class="layui-input-inline" style="width:100px;">
+			<div class="layui-input-inline" style="width: 100px;">
 				<input type="text" name="salaryPro" required lay-verify=""
 					autocomplete="off" class="layui-input">
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">转正工资</label>
-			<div class="layui-input-inline" style="width:100px;">
+			<div class="layui-input-inline" style="width: 100px;">
 				<input type="text" name="salaryFormal" required lay-verify=""
 					autocomplete="off" class="layui-input">
 			</div>
@@ -57,5 +62,5 @@
 		<button lay-filter="add" lay-submit style="display: none;"></button>
 	</form>
 
-	
+
 </div>

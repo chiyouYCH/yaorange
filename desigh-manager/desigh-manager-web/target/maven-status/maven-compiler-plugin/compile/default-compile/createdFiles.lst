@@ -1,8 +1,0 @@
-com\yaorange\controller\DagangController.class
-com\yaorange\controller\KejianController.class
-com\yaorange\controller\ShipingController.class
-com\yaorange\controller\UserController.class
-com\yaorange\interceptor\LoginInterceptor.class
-com\yaorange\controller\PageController.class
-com\yaorange\controller\FileController.class
-com\yaorange\controller\StudentController.class

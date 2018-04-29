@@ -1,66 +1,69 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 
-	<head>
-		<meta charset="UTF-8">
-		<title>班级信息</title>
-		<link rel="stylesheet" href="plugins/layui/css/layui.css" media="all" />
-		<link rel="stylesheet" href="css/global.css" media="all">
-		<link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css">
-		<link rel="stylesheet" href="css/table.css" />
-	</head>
+<head>
+<meta charset="UTF-8">
+<title>班级信息</title>
+<link rel="stylesheet" href="plugins/layui/css/layui.css" media="all" />
+<link rel="stylesheet" href="css/global.css" media="all">
+<link rel="stylesheet"
+	href="plugins/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="css/table.css" />
+</head>
 
-	<body>
-		<div class="admin-main">
+<body>
+	<div class="admin-main">
 
-			<blockquote class="layui-elem-quote">
-				<a href="javascript:;" class="layui-btn layui-btn-small" id="add">
-					<i class="layui-icon">&#xe608;</i> 添加班级
-				</a>
-				<a href="#" class="layui-btn layui-btn-small" id="getSelected">
-					<i class="fa fa-shopping-cart" aria-hidden="true"></i> 删除所选
-				</a>
-				<a href="classes-list" class="layui-btn layui-btn-small" id="fluse">
-					<i class="layui-icon">&#x1002;</i> 刷新
-				</a>
-				<form class="layui-form" style="float:right;">
-	                <div class="layui-form-item" style="margin:0;">
-	                    <div class="layui-input-inline">
-	                        <input type="text" name="name" placeholder="请输入班级名.." autocomplete="off" class="layui-input">
-	                    </div>
-	                    <div class="layui-form-mid layui-word-aux" style="padding:0;">
-	                        <button lay-filter="search" class="layui-btn" lay-submit  id="search"><i class="fa fa-search" aria-hidden="true"></i> 查询</button>
-	                    </div>
-	                </div>
-            	</form>
-            	
-			</blockquote>
-			<fieldset class="layui-elem-field">
-				<legend>班级列表</legend>
-				<div class="layui-field-box layui-form">
-					<table class="layui-table admin-table">
-						<thead>
-							<tr>
-								<th style="width: 30px;"><input type="checkbox" lay-filter="allselector" lay-skin="primary"></th>
-								<th>班级名</th>
-								<th>方向</th>
-								<th>操作</th>
-							</tr>
-						</thead>
-						<tbody id="content">
-						</tbody>
-					</table>
+		<blockquote class="layui-elem-quote">
+			<a href="javascript:;" class="layui-btn layui-btn-small" id="add">
+				<i class="layui-icon">&#xe608;</i> 添加班级
+			</a> <a href="#" class="layui-btn layui-btn-small" id="getSelected">
+				<i class="fa fa-shopping-cart" aria-hidden="true"></i> 删除所选
+			</a> <a href="classes-list" class="layui-btn layui-btn-small" id="fluse">
+				<i class="layui-icon">&#x1002;</i> 刷新
+			</a>
+			<form class="layui-form" style="float: right;">
+				<div class="layui-form-item" style="margin: 0;">
+					<div class="layui-input-inline">
+						<input type="text" name="name" placeholder="请输入班级名.."
+							autocomplete="off" class="layui-input">
+					</div>
+					<div class="layui-form-mid layui-word-aux" style="padding: 0;">
+						<button lay-filter="search" class="layui-btn" lay-submit
+							id="search">
+							<i class="fa fa-search" aria-hidden="true"></i> 查询
+						</button>
+					</div>
 				</div>
-			</fieldset>
-			<div class="admin-table-page">
-				<div id="paged" class="page">
-				</div>
+			</form>
+
+		</blockquote>
+		<fieldset class="layui-elem-field">
+			<legend>班级列表</legend>
+			<div class="layui-field-box layui-form">
+				<table class="layui-table admin-table">
+					<thead>
+						<tr>
+							<th style="width: 30px;"><input type="checkbox"
+								lay-filter="allselector" lay-skin="primary"></th>
+							<th>班级名</th>
+							<th>方向</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody id="content">
+					</tbody>
+				</table>
 			</div>
+		</fieldset>
+		<div class="admin-table-page">
+			<div id="paged" class="page"></div>
 		</div>
-		<!--模板-->
-		<script type="text/html" id="tpl">
+	</div>
+	<!--模板-->
+	<script type="text/html" id="tpl">
 			{{# layui.each(d.list, function(index, item){ }}
 			<tr>
 				<td><input type="checkbox" lay-skin="primary"></td>
@@ -73,8 +76,8 @@
 			</tr>
 			{{# }); }}
 		</script>
-		<script type="text/javascript" src="plugins/layui/layui.js"></script>
-		<script>
+	<script type="text/javascript" src="plugins/layui/layui.js"></script>
+	<script>
 			layui.config({
 				base: 'js/'
 			});
@@ -336,6 +339,6 @@
 				
 			});
 		</script>
-	</body>
+</body>
 
 </html>
