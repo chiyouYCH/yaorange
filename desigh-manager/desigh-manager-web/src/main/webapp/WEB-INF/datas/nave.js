@@ -46,12 +46,12 @@ var navs = [ {
         		"children": [
         			{
         				"title": "知识点",
-        				"icon": "fa-user",
-        				"href": "user-list"
+        				"icon": "&#xe62a;",
+        				"href": "knowPoint-list"
         			}, {
         				"title": "面试题",
-        				"icon": "fa-wrench",
-        				"href": "shiping-list"
+        				"icon": "&#xe62a;",
+        				"href": "topic-list"
         			}
         		]
         	},{

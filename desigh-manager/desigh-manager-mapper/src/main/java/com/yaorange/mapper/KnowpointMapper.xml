@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yaorange.mapper.KnowpointMapper" >
+  <resultMap id="BaseResultMap" type="com.yaorange.pojo.Knowpoint" >
+    <id column="knowpointI_id" property="knowpointiId" jdbcType="INTEGER" />
+    <result column="knowpoint_name" property="knowpointName" jdbcType="VARCHAR" />
+    <result column="course_name" property="courseName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    knowpointI_id, knowpoint_name, course_name
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yaorange.pojo.KnowpointExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from knowpoint
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from knowpoint
+    where knowpointI_id = #{knowpointiId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from knowpoint
+    where knowpointI_id = #{knowpointiId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yaorange.pojo.KnowpointExample" >
+    delete from knowpoint
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yaorange.pojo.Knowpoint" >
+    insert into knowpoint (knowpointI_id, knowpoint_name, course_name
+      )
+    values (#{knowpointiId,jdbcType=INTEGER}, #{knowpointName,jdbcType=VARCHAR}, #{courseName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yaorange.pojo.Knowpoint" >
+    insert into knowpoint
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="knowpointiId != null" >
+        knowpointI_id,
+      </if>
+      <if test="knowpointName != null" >
+        knowpoint_name,
+      </if>
+      <if test="courseName != null" >
+        course_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="knowpointiId != null" >
+        #{knowpointiId,jdbcType=INTEGER},
+      </if>
+      <if test="knowpointName != null" >
+        #{knowpointName,jdbcType=VARCHAR},
+      </if>
+      <if test="courseName != null" >
+        #{courseName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yaorange.pojo.KnowpointExample" resultType="java.lang.Integer" >
+    select count(*) from knowpoint
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update knowpoint
+    <set >
+      <if test="record.knowpointiId != null" >
+        knowpointI_id = #{record.knowpointiId,jdbcType=INTEGER},
+      </if>
+      <if test="record.knowpointName != null" >
+        knowpoint_name = #{record.knowpointName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.courseName != null" >
+        course_name = #{record.courseName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update knowpoint
+    set knowpointI_id = #{record.knowpointiId,jdbcType=INTEGER},
+      knowpoint_name = #{record.knowpointName,jdbcType=VARCHAR},
+      course_name = #{record.courseName,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yaorange.pojo.Knowpoint" >
+    update knowpoint
+    <set >
+      <if test="knowpointName != null" >
+        knowpoint_name = #{knowpointName,jdbcType=VARCHAR},
+      </if>
+      <if test="courseName != null" >
+        course_name = #{courseName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where knowpointI_id = #{knowpointiId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yaorange.pojo.Knowpoint" >
+    update knowpoint
+    set knowpoint_name = #{knowpointName,jdbcType=VARCHAR},
+      course_name = #{courseName,jdbcType=VARCHAR}
+    where knowpointI_id = #{knowpointiId,jdbcType=INTEGER}
+  </update>
+</mapper>
