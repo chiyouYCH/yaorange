@@ -12,7 +12,7 @@ import org.csource.fastdfs.TrackerServer;
 import org.junit.Test;
 
 public class FastDFSTest {
-	@Test
+	/*@Test
 	public void testUploadPic() throws Exception{
 //		1、把FastDFS提供的jar包添加到工程中
 //		2、初始化全局配置。加载一个配置文件。
@@ -30,5 +30,5 @@ public class FastDFSTest {
 		for (String string : upload_file) {
 			System.out.println(string);
 		}
-	}
+	}*/
 }

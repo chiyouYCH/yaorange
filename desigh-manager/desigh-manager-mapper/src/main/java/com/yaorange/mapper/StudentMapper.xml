@@ -2,13 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.yaorange.mapper.StudentMapper" >
   <resultMap id="BaseResultMap" type="com.yaorange.pojo.Student" >
-    <id column="Id" property="id" jdbcType="INTEGER" />
-    <result column="UserName" property="username" jdbcType="VARCHAR" />
-    <result column="Sex" property="sex" jdbcType="VARCHAR" />
-    <result column="Qq" property="qq" jdbcType="VARCHAR" />
-    <result column="Email" property="email" jdbcType="VARCHAR" />
-    <result column="CreateTime" property="createtime" jdbcType="TIMESTAMP" />
-    <result column="HomePage" property="homepage" jdbcType="VARCHAR" />
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="studentNo" property="studentno" jdbcType="VARCHAR" />
+    <result column="studentName" property="studentname" jdbcType="VARCHAR" />
+    <result column="idCardNo" property="idcardno" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="school" property="school" jdbcType="VARCHAR" />
+    <result column="major" property="major" jdbcType="VARCHAR" />
+    <result column="education" property="education" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="qq" property="qq" jdbcType="VARCHAR" />
+    <result column="graduationTime" property="graduationtime" jdbcType="DATE" />
+    <result column="className" property="classname" jdbcType="VARCHAR" />
+    <result column="directionalName" property="directionalname" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.yaorange.pojo.Student" extends="BaseResultMap" >
+    <result column="remark" property="remark" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -69,8 +78,28 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    Id, UserName, Sex, Qq, Email, CreateTime, HomePage
+    id, studentNo, studentName, idCardNo, password, school, major, education, phone, 
+    qq, graduationTime, className, directionalName
   </sql>
+  <sql id="Blob_Column_List" >
+    remark
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.yaorange.pojo.StudentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from student
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yaorange.pojo.StudentExample" >
     select
     <if test="distinct" >
@@ -85,15 +114,17 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
     from student
-    where Id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from student
-    where Id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.yaorange.pojo.StudentExample" >
     delete from student
@@ -102,59 +133,105 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.yaorange.pojo.Student" >
-    insert into student (Id, UserName, Sex, 
-      Qq, Email, CreateTime, 
-      HomePage)
-    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
-      #{qq,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
-      #{homepage,jdbcType=VARCHAR})
+    insert into student (id, studentNo, studentName, 
+      idCardNo, password, school, 
+      major, education, phone, 
+      qq, graduationTime, className, 
+      directionalName, remark)
+    values (#{id,jdbcType=INTEGER}, #{studentno,jdbcType=VARCHAR}, #{studentname,jdbcType=VARCHAR}, 
+      #{idcardno,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{school,jdbcType=VARCHAR}, 
+      #{major,jdbcType=VARCHAR}, #{education,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{qq,jdbcType=VARCHAR}, #{graduationtime,jdbcType=DATE}, #{classname,jdbcType=VARCHAR}, 
+      #{directionalname,jdbcType=VARCHAR}, #{remark,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.yaorange.pojo.Student" >
     insert into student
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
-        Id,
+        id,
       </if>
-      <if test="username != null" >
-        UserName,
+      <if test="studentno != null" >
+        studentNo,
       </if>
-      <if test="sex != null" >
-        Sex,
+      <if test="studentname != null" >
+        studentName,
+      </if>
+      <if test="idcardno != null" >
+        idCardNo,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="school != null" >
+        school,
+      </if>
+      <if test="major != null" >
+        major,
+      </if>
+      <if test="education != null" >
+        education,
+      </if>
+      <if test="phone != null" >
+        phone,
       </if>
       <if test="qq != null" >
-        Qq,
+        qq,
       </if>
-      <if test="email != null" >
-        Email,
+      <if test="graduationtime != null" >
+        graduationTime,
       </if>
-      <if test="createtime != null" >
-        CreateTime,
+      <if test="classname != null" >
+        className,
       </if>
-      <if test="homepage != null" >
-        HomePage,
+      <if test="directionalname != null" >
+        directionalName,
+      </if>
+      <if test="remark != null" >
+        remark,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="username != null" >
-        #{username,jdbcType=VARCHAR},
+      <if test="studentno != null" >
+        #{studentno,jdbcType=VARCHAR},
       </if>
-      <if test="sex != null" >
-        #{sex,jdbcType=VARCHAR},
+      <if test="studentname != null" >
+        #{studentname,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardno != null" >
+        #{idcardno,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="school != null" >
+        #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null" >
+        #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null" >
+        #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
       </if>
       <if test="qq != null" >
         #{qq,jdbcType=VARCHAR},
       </if>
-      <if test="email != null" >
-        #{email,jdbcType=VARCHAR},
+      <if test="graduationtime != null" >
+        #{graduationtime,jdbcType=DATE},
       </if>
-      <if test="createtime != null" >
-        #{createtime,jdbcType=TIMESTAMP},
+      <if test="classname != null" >
+        #{classname,jdbcType=VARCHAR},
       </if>
-      <if test="homepage != null" >
-        #{homepage,jdbcType=VARCHAR},
+      <if test="directionalname != null" >
+        #{directionalname,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -168,40 +245,87 @@
     update student
     <set >
       <if test="record.id != null" >
-        Id = #{record.id,jdbcType=INTEGER},
+        id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.username != null" >
-        UserName = #{record.username,jdbcType=VARCHAR},
+      <if test="record.studentno != null" >
+        studentNo = #{record.studentno,jdbcType=VARCHAR},
       </if>
-      <if test="record.sex != null" >
-        Sex = #{record.sex,jdbcType=VARCHAR},
+      <if test="record.studentname != null" >
+        studentName = #{record.studentname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idcardno != null" >
+        idCardNo = #{record.idcardno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null" >
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.school != null" >
+        school = #{record.school,jdbcType=VARCHAR},
+      </if>
+      <if test="record.major != null" >
+        major = #{record.major,jdbcType=VARCHAR},
+      </if>
+      <if test="record.education != null" >
+        education = #{record.education,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
       </if>
       <if test="record.qq != null" >
-        Qq = #{record.qq,jdbcType=VARCHAR},
+        qq = #{record.qq,jdbcType=VARCHAR},
       </if>
-      <if test="record.email != null" >
-        Email = #{record.email,jdbcType=VARCHAR},
+      <if test="record.graduationtime != null" >
+        graduationTime = #{record.graduationtime,jdbcType=DATE},
       </if>
-      <if test="record.createtime != null" >
-        CreateTime = #{record.createtime,jdbcType=TIMESTAMP},
+      <if test="record.classname != null" >
+        className = #{record.classname,jdbcType=VARCHAR},
       </if>
-      <if test="record.homepage != null" >
-        HomePage = #{record.homepage,jdbcType=VARCHAR},
+      <if test="record.directionalname != null" >
+        directionalName = #{record.directionalname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=LONGVARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update student
+    set id = #{record.id,jdbcType=INTEGER},
+      studentNo = #{record.studentno,jdbcType=VARCHAR},
+      studentName = #{record.studentname,jdbcType=VARCHAR},
+      idCardNo = #{record.idcardno,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      school = #{record.school,jdbcType=VARCHAR},
+      major = #{record.major,jdbcType=VARCHAR},
+      education = #{record.education,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      qq = #{record.qq,jdbcType=VARCHAR},
+      graduationTime = #{record.graduationtime,jdbcType=DATE},
+      className = #{record.classname,jdbcType=VARCHAR},
+      directionalName = #{record.directionalname,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
   <update id="updateByExample" parameterType="map" >
     update student
-    set Id = #{record.id,jdbcType=INTEGER},
-      UserName = #{record.username,jdbcType=VARCHAR},
-      Sex = #{record.sex,jdbcType=VARCHAR},
-      Qq = #{record.qq,jdbcType=VARCHAR},
-      Email = #{record.email,jdbcType=VARCHAR},
-      CreateTime = #{record.createtime,jdbcType=TIMESTAMP},
-      HomePage = #{record.homepage,jdbcType=VARCHAR}
+    set id = #{record.id,jdbcType=INTEGER},
+      studentNo = #{record.studentno,jdbcType=VARCHAR},
+      studentName = #{record.studentname,jdbcType=VARCHAR},
+      idCardNo = #{record.idcardno,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      school = #{record.school,jdbcType=VARCHAR},
+      major = #{record.major,jdbcType=VARCHAR},
+      education = #{record.education,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      qq = #{record.qq,jdbcType=VARCHAR},
+      graduationTime = #{record.graduationtime,jdbcType=DATE},
+      className = #{record.classname,jdbcType=VARCHAR},
+      directionalName = #{record.directionalname,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -209,35 +333,79 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.yaorange.pojo.Student" >
     update student
     <set >
-      <if test="username != null" >
-        UserName = #{username,jdbcType=VARCHAR},
+      <if test="studentno != null" >
+        studentNo = #{studentno,jdbcType=VARCHAR},
       </if>
-      <if test="sex != null" >
-        Sex = #{sex,jdbcType=VARCHAR},
+      <if test="studentname != null" >
+        studentName = #{studentname,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardno != null" >
+        idCardNo = #{idcardno,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="school != null" >
+        school = #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null" >
+        major = #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null" >
+        education = #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
       </if>
       <if test="qq != null" >
-        Qq = #{qq,jdbcType=VARCHAR},
+        qq = #{qq,jdbcType=VARCHAR},
       </if>
-      <if test="email != null" >
-        Email = #{email,jdbcType=VARCHAR},
+      <if test="graduationtime != null" >
+        graduationTime = #{graduationtime,jdbcType=DATE},
       </if>
-      <if test="createtime != null" >
-        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      <if test="classname != null" >
+        className = #{classname,jdbcType=VARCHAR},
       </if>
-      <if test="homepage != null" >
-        HomePage = #{homepage,jdbcType=VARCHAR},
+      <if test="directionalname != null" >
+        directionalName = #{directionalname,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=LONGVARCHAR},
       </if>
     </set>
-    where Id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yaorange.pojo.Student" >
+    update student
+    set studentNo = #{studentno,jdbcType=VARCHAR},
+      studentName = #{studentname,jdbcType=VARCHAR},
+      idCardNo = #{idcardno,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      school = #{school,jdbcType=VARCHAR},
+      major = #{major,jdbcType=VARCHAR},
+      education = #{education,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      qq = #{qq,jdbcType=VARCHAR},
+      graduationTime = #{graduationtime,jdbcType=DATE},
+      className = #{classname,jdbcType=VARCHAR},
+      directionalName = #{directionalname,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.yaorange.pojo.Student" >
     update student
-    set UserName = #{username,jdbcType=VARCHAR},
-      Sex = #{sex,jdbcType=VARCHAR},
-      Qq = #{qq,jdbcType=VARCHAR},
-      Email = #{email,jdbcType=VARCHAR},
-      CreateTime = #{createtime,jdbcType=TIMESTAMP},
-      HomePage = #{homepage,jdbcType=VARCHAR}
-    where Id = #{id,jdbcType=INTEGER}
+    set studentNo = #{studentno,jdbcType=VARCHAR},
+      studentName = #{studentname,jdbcType=VARCHAR},
+      idCardNo = #{idcardno,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      school = #{school,jdbcType=VARCHAR},
+      major = #{major,jdbcType=VARCHAR},
+      education = #{education,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      qq = #{qq,jdbcType=VARCHAR},
+      graduationTime = #{graduationtime,jdbcType=DATE},
+      className = #{classname,jdbcType=VARCHAR},
+      directionalName = #{directionalname,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

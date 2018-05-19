@@ -97,7 +97,6 @@ public class UserServiceImpl  implements UserService{
 			return EasyBuyResult.build(500,"该用户名已存在");
 		}
 		if(user.getCode()==2){
-			student.setCreatetime(new Date());
 			studentMapper.insert(student);
 		}
 		userMapper.insert(user);

@@ -1,5 +1,7 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 
@@ -17,13 +19,17 @@
 	<div class="admin-main">
 
 		<blockquote class="layui-elem-quote">
+		<c:if test="${code!= 1}">
 			<a href="javascript:;" class="layui-btn layui-btn-small" id="add">
 				<i class="layui-icon">&#xe608;</i> 添加学员
+				
 			</a> <a href="#" class="layui-btn layui-btn-small" id="getSelected">
 				<i class="fa fa-shopping-cart" aria-hidden="true"></i> 删除所选
+				</c:if>
 			</a> <a href="student-list" class="layui-btn layui-btn-small" id="fluse">
 				<i class="layui-icon">&#x1002;</i> 刷新
 			</a>
+			<c:if test="${code!= 1}">
 			<form class="layui-form" style="float: right;">
 				<div class="layui-form-item" style="margin: 0;">
 					<div class="layui-input-inline">
@@ -38,6 +44,7 @@
 					</div>
 				</div>
 			</form>
+			</c:if>
 
 		</blockquote>
 		<fieldset class="layui-elem-field">
@@ -48,12 +55,18 @@
 						<tr>
 							<th style="width: 30px;"><input type="checkbox"
 								lay-filter="allselector" lay-skin="primary"></th>
+							<th>学号</th>
 							<th>姓名</th>
-							<th>性别</th>
+							<th>身份证号码</th>
+							<th>学校</th>
+							<th>专业</th>
+							<th>层次</th>
+							<th>联系方式</th>
 							<th>QQ</th>
-							<th>邮件</th>
-							<th>添加时间</th>
-							<th>操作</th>
+							<th>毕业时间</th>
+							<th>班级名</th>
+							<th>方向</th>
+							<th>备注</th>
 						</tr>
 					</thead>
 					<tbody id="content">
@@ -70,16 +83,25 @@
 			{{# layui.each(d.list, function(index, item){ }}
 			<tr>
 				<td><input type="checkbox" lay-skin="primary"></td>
-				<td>{{ item.username }}</td>
-				<td>{{ item.sex }}</td>
+				<td>{{ item.studentno }}</td>
+				<td>{{ item.studentname }}</td>
+				<td>{{ item.idcardno }}</td>
+				<td>{{ item.school }}</td>
+				<td>{{ item.major }}</td>
+				<td>{{ item.education }}</td>
+				<td>{{ item.phone }}</td>
 				<td>{{ item.qq }}</td>
-				<td>{{ item.email }}</td>
-				<td>{{ null==item.createtime?'':layui.laytpl.toDateString(item.creartetime,'yyyy-MM-dd') }}</td>
-
+				<td>{{ item.graduationtime }}</td>
+				<td>{{ item.classname }}</td>
+				<td>{{ item.directionalname }}</td>
+				<td>{{ item.remark }}</td>
+<td>{{${code} }}</td>
 				<td>
-					<a href="javascript:;" data-id="{{ item.id }}" data-opt="edit" class="layui-btn layui-btn-mini">编辑</a>
+					<a href="javascript:;" data-id="{{ item.id }}" data-opt="edit" class="layui-btn layui-btn-mini">编辑/查看</a>
+					{{# if (${code}== 0 ||${code}== 2) { }}  
 					<a href="javascript:;" data-id="{{ item.id }}" data-opt="del" class="layui-btn layui-btn-danger layui-btn-mini">删除</a>
-				</td>
+					{{# } }} 			
+</td>
 			</tr>
 			{{# }); }}
 		</script>
