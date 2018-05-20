@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yaorange.mapper.InterviewSituationMapper" >
+  <resultMap id="BaseResultMap" type="com.yaorange.pojo.InterviewSituation" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="studentId" property="studentid" jdbcType="INTEGER" />
+    <result column="interviewCompany" property="interviewcompany" jdbcType="VARCHAR" />
+    <result column="enclosure1" property="enclosure1" jdbcType="VARCHAR" />
+    <result column="enclosure2" property="enclosure2" jdbcType="VARCHAR" />
+    <result column="soundRecording" property="soundrecording" jdbcType="VARCHAR" />
+     <result column="studentNo" property="studentno" jdbcType="VARCHAR" />
+    <result column="studentName" property="studentname" jdbcType="VARCHAR" />
+    <result column="className" property="classname" jdbcType="VARCHAR" />
+    <result column="writtenExamination" property="writtenexamination" jdbcType="LONGVARCHAR" />
+    <result column="interviewExamination" property="interviewexamination" jdbcType="LONGVARCHAR" />
+    <result column="interviewFeedback" property="interviewfeedback" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.yaorange.pojo.InterviewSituationWithBLOBs" extends="BaseResultMap" >
+    <result column="writtenExamination" property="writtenexamination" jdbcType="LONGVARCHAR" />
+    <result column="interviewExamination" property="interviewexamination" jdbcType="LONGVARCHAR" />
+    <result column="interviewFeedback" property="interviewfeedback" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, studentId, interviewCompany, enclosure1, enclosure2, soundRecording
+  </sql>
+  <sql id="Blob_Column_List" >
+    writtenExamination, interviewExamination, interviewFeedback
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.yaorange.pojo.InterviewSituationExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from interview_situation
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yaorange.pojo.InterviewSituationExample" >
+SELECT ins.*,s.studentName,s.studentNo,s.className 
+  from interview_situation ins 
+LEFT JOIN student s on ins.studentId=s.id
+  <!-->    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    com.yaorange.pojo.InterviewRecordsExample
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>  <-->
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from interview_situation
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from interview_situation
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yaorange.pojo.InterviewSituationExample" >
+    delete from interview_situation
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yaorange.pojo.InterviewSituationWithBLOBs" >
+    insert into interview_situation (id, studentId, interviewCompany, 
+      enclosure1, enclosure2, soundRecording, 
+      writtenExamination, interviewExamination, 
+      interviewFeedback)
+    values (#{id,jdbcType=BIGINT}, #{studentid,jdbcType=INTEGER}, #{interviewcompany,jdbcType=VARCHAR}, 
+      #{enclosure1,jdbcType=VARCHAR}, #{enclosure2,jdbcType=VARCHAR}, #{soundrecording,jdbcType=VARCHAR}, 
+      #{writtenexamination,jdbcType=LONGVARCHAR}, #{interviewexamination,jdbcType=LONGVARCHAR}, 
+      #{interviewfeedback,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yaorange.pojo.InterviewSituationWithBLOBs" >
+    insert into interview_situation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="studentid != null" >
+        studentId,
+      </if>
+      <if test="interviewcompany != null" >
+        interviewCompany,
+      </if>
+      <if test="enclosure1 != null" >
+        enclosure1,
+      </if>
+      <if test="enclosure2 != null" >
+        enclosure2,
+      </if>
+      <if test="soundrecording != null" >
+        soundRecording,
+      </if>
+      <if test="writtenexamination != null" >
+        writtenExamination,
+      </if>
+      <if test="interviewexamination != null" >
+        interviewExamination,
+      </if>
+      <if test="interviewfeedback != null" >
+        interviewFeedback,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="studentid != null" >
+        #{studentid,jdbcType=INTEGER},
+      </if>
+      <if test="interviewcompany != null" >
+        #{interviewcompany,jdbcType=VARCHAR},
+      </if>
+      <if test="enclosure1 != null" >
+        #{enclosure1,jdbcType=VARCHAR},
+      </if>
+      <if test="enclosure2 != null" >
+        #{enclosure2,jdbcType=VARCHAR},
+      </if>
+      <if test="soundrecording != null" >
+        #{soundrecording,jdbcType=VARCHAR},
+      </if>
+      <if test="writtenexamination != null" >
+        #{writtenexamination,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="interviewexamination != null" >
+        #{interviewexamination,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="interviewfeedback != null" >
+        #{interviewfeedback,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yaorange.pojo.InterviewSituationExample" resultType="java.lang.Integer" >
+    select count(*) from interview_situation
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update interview_situation
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.studentid != null" >
+        studentId = #{record.studentid,jdbcType=INTEGER},
+      </if>
+      <if test="record.interviewcompany != null" >
+        interviewCompany = #{record.interviewcompany,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enclosure1 != null" >
+        enclosure1 = #{record.enclosure1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enclosure2 != null" >
+        enclosure2 = #{record.enclosure2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.soundrecording != null" >
+        soundRecording = #{record.soundrecording,jdbcType=VARCHAR},
+      </if>
+      <if test="record.writtenexamination != null" >
+        writtenExamination = #{record.writtenexamination,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.interviewexamination != null" >
+        interviewExamination = #{record.interviewexamination,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.interviewfeedback != null" >
+        interviewFeedback = #{record.interviewfeedback,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update interview_situation
+    set id = #{record.id,jdbcType=BIGINT},
+      studentId = #{record.studentid,jdbcType=INTEGER},
+      interviewCompany = #{record.interviewcompany,jdbcType=VARCHAR},
+      enclosure1 = #{record.enclosure1,jdbcType=VARCHAR},
+      enclosure2 = #{record.enclosure2,jdbcType=VARCHAR},
+      soundRecording = #{record.soundrecording,jdbcType=VARCHAR},
+      writtenExamination = #{record.writtenexamination,jdbcType=LONGVARCHAR},
+      interviewExamination = #{record.interviewexamination,jdbcType=LONGVARCHAR},
+      interviewFeedback = #{record.interviewfeedback,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update interview_situation
+    set id = #{record.id,jdbcType=BIGINT},
+      studentId = #{record.studentid,jdbcType=INTEGER},
+      interviewCompany = #{record.interviewcompany,jdbcType=VARCHAR},
+      enclosure1 = #{record.enclosure1,jdbcType=VARCHAR},
+      enclosure2 = #{record.enclosure2,jdbcType=VARCHAR},
+      soundRecording = #{record.soundrecording,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yaorange.pojo.InterviewSituationWithBLOBs" >
+    update interview_situation
+    <set >
+      <if test="studentid != null" >
+        studentId = #{studentid,jdbcType=INTEGER},
+      </if>
+      <if test="interviewcompany != null" >
+        interviewCompany = #{interviewcompany,jdbcType=VARCHAR},
+      </if>
+      <if test="enclosure1 != null" >
+        enclosure1 = #{enclosure1,jdbcType=VARCHAR},
+      </if>
+      <if test="enclosure2 != null" >
+        enclosure2 = #{enclosure2,jdbcType=VARCHAR},
+      </if>
+      <if test="soundrecording != null" >
+        soundRecording = #{soundrecording,jdbcType=VARCHAR},
+      </if>
+      <if test="writtenexamination != null" >
+        writtenExamination = #{writtenexamination,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="interviewexamination != null" >
+        interviewExamination = #{interviewexamination,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="interviewfeedback != null" >
+        interviewFeedback = #{interviewfeedback,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yaorange.pojo.InterviewSituationWithBLOBs" >
+    update interview_situation
+    set studentId = #{studentid,jdbcType=INTEGER},
+      interviewCompany = #{interviewcompany,jdbcType=VARCHAR},
+      enclosure1 = #{enclosure1,jdbcType=VARCHAR},
+      enclosure2 = #{enclosure2,jdbcType=VARCHAR},
+      soundRecording = #{soundrecording,jdbcType=VARCHAR},
+      writtenExamination = #{writtenexamination,jdbcType=LONGVARCHAR},
+      interviewExamination = #{interviewexamination,jdbcType=LONGVARCHAR},
+      interviewFeedback = #{interviewfeedback,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yaorange.pojo.InterviewSituation" >
+    update interview_situation
+    set studentId = #{studentid,jdbcType=INTEGER},
+      interviewCompany = #{interviewcompany,jdbcType=VARCHAR},
+      enclosure1 = #{enclosure1,jdbcType=VARCHAR},
+      enclosure2 = #{enclosure2,jdbcType=VARCHAR},
+      soundRecording = #{soundrecording,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

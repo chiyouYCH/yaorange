@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yaorange.mapper.EmploymentSituationMapper" >
+  <resultMap id="BaseResultMap" type="com.yaorange.pojo.EmploymentSituation" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="studentId" property="studentid" jdbcType="INTEGER" />
+    <result column="company" property="company" jdbcType="VARCHAR" />
+    <result column="place" property="place" jdbcType="VARCHAR" />
+    <result column="contacts" property="contacts" jdbcType="VARCHAR" />
+    <result column="contactsPhone" property="contactsphone" jdbcType="VARCHAR" />
+    <result column="joinTime" property="jointime" jdbcType="DATE" />
+    <result column="applicableWages" property="applicablewages" jdbcType="INTEGER" />
+    <result column="formalWages" property="formalwages" jdbcType="INTEGER" />
+    <result column="offer" property="offer" jdbcType="VARCHAR" />
+    <result column="welfare" property="welfare" jdbcType="LONGVARCHAR" />
+    <result column="remark" property="remark" jdbcType="LONGVARCHAR" />
+     <result column="studentNo" property="studentno" jdbcType="VARCHAR" />
+    <result column="studentName" property="studentname" jdbcType="VARCHAR" />
+    <result column="className" property="classname" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.yaorange.pojo.EmploymentSituationWithBLOBs" extends="BaseResultMap" >
+    <result column="welfare" property="welfare" jdbcType="LONGVARCHAR" />
+    <result column="remark" property="remark" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, studentId, company, place, contacts, contactsPhone, joinTime, applicableWages, 
+    formalWages, offer
+  </sql>
+  <sql id="Blob_Column_List" >
+    welfare, remark
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.yaorange.pojo.EmploymentSituationExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from employment_situation
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yaorange.pojo.EmploymentSituationExample" >
+     SELECT es.*,s.studentName,s.studentNo,s.className 
+  from employment_situation es 
+LEFT JOIN student s on es.studentId=s.id
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from employment_situation
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from employment_situation
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yaorange.pojo.EmploymentSituationExample" >
+    delete from employment_situation
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yaorange.pojo.EmploymentSituationWithBLOBs" >
+    insert into employment_situation (id, studentId, company, 
+      place, contacts, contactsPhone, 
+      joinTime, applicableWages, formalWages, 
+      offer, welfare, remark
+      )
+    values (#{id,jdbcType=BIGINT}, #{studentid,jdbcType=INTEGER}, #{company,jdbcType=VARCHAR}, 
+      #{place,jdbcType=VARCHAR}, #{contacts,jdbcType=VARCHAR}, #{contactsphone,jdbcType=VARCHAR}, 
+      #{jointime,jdbcType=DATE}, #{applicablewages,jdbcType=INTEGER}, #{formalwages,jdbcType=INTEGER}, 
+      #{offer,jdbcType=VARCHAR}, #{welfare,jdbcType=LONGVARCHAR}, #{remark,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yaorange.pojo.EmploymentSituationWithBLOBs" >
+    insert into employment_situation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="studentid != null" >
+        studentId,
+      </if>
+      <if test="company != null" >
+        company,
+      </if>
+      <if test="place != null" >
+        place,
+      </if>
+      <if test="contacts != null" >
+        contacts,
+      </if>
+      <if test="contactsphone != null" >
+        contactsPhone,
+      </if>
+      <if test="jointime != null" >
+        joinTime,
+      </if>
+      <if test="applicablewages != null" >
+        applicableWages,
+      </if>
+      <if test="formalwages != null" >
+        formalWages,
+      </if>
+      <if test="offer != null" >
+        offer,
+      </if>
+      <if test="welfare != null" >
+        welfare,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="studentid != null" >
+        #{studentid,jdbcType=INTEGER},
+      </if>
+      <if test="company != null" >
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="place != null" >
+        #{place,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts != null" >
+        #{contacts,jdbcType=VARCHAR},
+      </if>
+      <if test="contactsphone != null" >
+        #{contactsphone,jdbcType=VARCHAR},
+      </if>
+      <if test="jointime != null" >
+        #{jointime,jdbcType=DATE},
+      </if>
+      <if test="applicablewages != null" >
+        #{applicablewages,jdbcType=INTEGER},
+      </if>
+      <if test="formalwages != null" >
+        #{formalwages,jdbcType=INTEGER},
+      </if>
+      <if test="offer != null" >
+        #{offer,jdbcType=VARCHAR},
+      </if>
+      <if test="welfare != null" >
+        #{welfare,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yaorange.pojo.EmploymentSituationExample" resultType="java.lang.Integer" >
+    select count(*) from employment_situation
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update employment_situation
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.studentid != null" >
+        studentId = #{record.studentid,jdbcType=INTEGER},
+      </if>
+      <if test="record.company != null" >
+        company = #{record.company,jdbcType=VARCHAR},
+      </if>
+      <if test="record.place != null" >
+        place = #{record.place,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contacts != null" >
+        contacts = #{record.contacts,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contactsphone != null" >
+        contactsPhone = #{record.contactsphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jointime != null" >
+        joinTime = #{record.jointime,jdbcType=DATE},
+      </if>
+      <if test="record.applicablewages != null" >
+        applicableWages = #{record.applicablewages,jdbcType=INTEGER},
+      </if>
+      <if test="record.formalwages != null" >
+        formalWages = #{record.formalwages,jdbcType=INTEGER},
+      </if>
+      <if test="record.offer != null" >
+        offer = #{record.offer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.welfare != null" >
+        welfare = #{record.welfare,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update employment_situation
+    set id = #{record.id,jdbcType=BIGINT},
+      studentId = #{record.studentid,jdbcType=INTEGER},
+      company = #{record.company,jdbcType=VARCHAR},
+      place = #{record.place,jdbcType=VARCHAR},
+      contacts = #{record.contacts,jdbcType=VARCHAR},
+      contactsPhone = #{record.contactsphone,jdbcType=VARCHAR},
+      joinTime = #{record.jointime,jdbcType=DATE},
+      applicableWages = #{record.applicablewages,jdbcType=INTEGER},
+      formalWages = #{record.formalwages,jdbcType=INTEGER},
+      offer = #{record.offer,jdbcType=VARCHAR},
+      welfare = #{record.welfare,jdbcType=LONGVARCHAR},
+      remark = #{record.remark,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update employment_situation
+    set id = #{record.id,jdbcType=BIGINT},
+      studentId = #{record.studentid,jdbcType=INTEGER},
+      company = #{record.company,jdbcType=VARCHAR},
+      place = #{record.place,jdbcType=VARCHAR},
+      contacts = #{record.contacts,jdbcType=VARCHAR},
+      contactsPhone = #{record.contactsphone,jdbcType=VARCHAR},
+      joinTime = #{record.jointime,jdbcType=DATE},
+      applicableWages = #{record.applicablewages,jdbcType=INTEGER},
+      formalWages = #{record.formalwages,jdbcType=INTEGER},
+      offer = #{record.offer,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yaorange.pojo.EmploymentSituationWithBLOBs" >
+    update employment_situation
+    <set >
+      <if test="studentid != null" >
+        studentId = #{studentid,jdbcType=INTEGER},
+      </if>
+      <if test="company != null" >
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="place != null" >
+        place = #{place,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts != null" >
+        contacts = #{contacts,jdbcType=VARCHAR},
+      </if>
+      <if test="contactsphone != null" >
+        contactsPhone = #{contactsphone,jdbcType=VARCHAR},
+      </if>
+      <if test="jointime != null" >
+        joinTime = #{jointime,jdbcType=DATE},
+      </if>
+      <if test="applicablewages != null" >
+        applicableWages = #{applicablewages,jdbcType=INTEGER},
+      </if>
+      <if test="formalwages != null" >
+        formalWages = #{formalwages,jdbcType=INTEGER},
+      </if>
+      <if test="offer != null" >
+        offer = #{offer,jdbcType=VARCHAR},
+      </if>
+      <if test="welfare != null" >
+        welfare = #{welfare,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yaorange.pojo.EmploymentSituationWithBLOBs" >
+    update employment_situation
+    set studentId = #{studentid,jdbcType=INTEGER},
+      company = #{company,jdbcType=VARCHAR},
+      place = #{place,jdbcType=VARCHAR},
+      contacts = #{contacts,jdbcType=VARCHAR},
+      contactsPhone = #{contactsphone,jdbcType=VARCHAR},
+      joinTime = #{jointime,jdbcType=DATE},
+      applicableWages = #{applicablewages,jdbcType=INTEGER},
+      formalWages = #{formalwages,jdbcType=INTEGER},
+      offer = #{offer,jdbcType=VARCHAR},
+      welfare = #{welfare,jdbcType=LONGVARCHAR},
+      remark = #{remark,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yaorange.pojo.EmploymentSituation" >
+    update employment_situation
+    set studentId = #{studentid,jdbcType=INTEGER},
+      company = #{company,jdbcType=VARCHAR},
+      place = #{place,jdbcType=VARCHAR},
+      contacts = #{contacts,jdbcType=VARCHAR},
+      contactsPhone = #{contactsphone,jdbcType=VARCHAR},
+      joinTime = #{jointime,jdbcType=DATE},
+      applicableWages = #{applicablewages,jdbcType=INTEGER},
+      formalWages = #{formalwages,jdbcType=INTEGER},
+      offer = #{offer,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

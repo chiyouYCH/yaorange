@@ -55,23 +55,23 @@ var navs = [ {
         			}
         		]
         	},{
-        		"title": "面试管理",
-        		"icon": "&#xe614;",
-        		"spread": false,
-        		"children": [
-        			{
-        				"title": "面试记录",
-        				"icon": "fa-user",
-        				"href": "user-list"
-        			}, {
-        				"title": "面试情况",
-        				"icon": "fa-wrench",
-        				"href": "shiping-list"
-        			}, {
-        				"title": "录取情况",
-        				"icon": "fa-wrench",
-        				"href": "shiping-list"
-        			}
-        		]
-        	}
-        ];
+    "title": "面试管理",
+    "icon": "&#xe614;",
+    "spread": false,
+    "children": [
+        {
+            "title": "面试记录",
+            "icon": "fa-user",
+            "href": "interviewRecord-list"
+        }, {
+            "title": "面试情况",
+            "icon": "fa-wrench",
+            "href": "interviewSituation-list"
+        }, {
+            "title": "录取情况",
+            "icon": "fa-wrench",
+            "href": "employmentSituation-list"
+        }
+    ]
+}
+];
