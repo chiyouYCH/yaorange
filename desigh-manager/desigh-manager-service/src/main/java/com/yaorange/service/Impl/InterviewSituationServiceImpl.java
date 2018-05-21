@@ -11,11 +11,13 @@ import com.github.pagehelper.PageInfo;
 import com.yaorange.mapper.InterviewRecordsMapper;
 import com.yaorange.mapper.InterviewSituationMapper;
 import com.yaorange.pojo.DataResult;
+import com.yaorange.pojo.EasyBuyResult;
 import com.yaorange.pojo.InterviewRecords;
 import com.yaorange.pojo.InterviewRecordsExample;
 import com.yaorange.pojo.InterviewRecordsExample.Criteria;
 import com.yaorange.pojo.InterviewSituation;
 import com.yaorange.pojo.InterviewSituationExample;
+import com.yaorange.pojo.InterviewSituationWithBLOBs;
 import com.yaorange.service.InterviewSituationService;
 
 @Service
@@ -47,6 +49,16 @@ public class InterviewSituationServiceImpl implements InterviewSituationService 
 	    result.setRel(true);
 	    result.setMsg("获取成功");
 		return result;
+	}
+
+
+	@Override
+	public EasyBuyResult saveInterviewSituation(InterviewSituationWithBLOBs interview) {
+		int key=interviewSituationMapper.insert(interview);
+		if(key>0){
+			return EasyBuyResult.build(200,"添加成功");
+		}
+		return EasyBuyResult.build(200,"添加失败，请重试");
 	}
 
 }
