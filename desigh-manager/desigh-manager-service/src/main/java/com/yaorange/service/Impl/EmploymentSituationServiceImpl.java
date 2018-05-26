@@ -11,8 +11,10 @@ import com.github.pagehelper.PageInfo;
 import com.yaorange.mapper.EmploymentSituationMapper;
 import com.yaorange.mapper.InterviewRecordsMapper;
 import com.yaorange.pojo.DataResult;
+import com.yaorange.pojo.EasyBuyResult;
 import com.yaorange.pojo.EmploymentSituation;
 import com.yaorange.pojo.EmploymentSituationExample;
+import com.yaorange.pojo.EmploymentSituationWithBLOBs;
 import com.yaorange.pojo.InterviewRecords;
 import com.yaorange.pojo.InterviewRecordsExample;
 import com.yaorange.pojo.InterviewRecordsExample.Criteria;
@@ -42,6 +44,27 @@ public class EmploymentSituationServiceImpl implements EmploymentSituationServic
 	    result.setMsg("获取成功");
 		return result;
 		
+	}
+
+	@Override
+	public DataResult savaEmploymentSituation(EmploymentSituationWithBLOBs em) {
+		// TODO Auto-generated method stub
+		 DataResult result=new DataResult();
+		try {
+			int rs = employmentSituationMapper.insertSelective(em);
+			if(rs>0){
+			result.setRel(true);
+			 result.setMsg("添加成功");
+			}else {
+				result.setRel(false);
+				 result.setMsg("添加失败");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.setRel(false);
+			 result.setMsg("添加失败");
+		}
+		return result;
 	}
 
 }

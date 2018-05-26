@@ -6,11 +6,18 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.yaorange.pojo.DataResult;
+import com.yaorange.pojo.EasyBuyResult;
+import com.yaorange.pojo.EmploymentSituation;
+import com.yaorange.pojo.EmploymentSituationWithBLOBs;
 import com.yaorange.service.EmploymentSituationService;
 import com.yaorange.service.InterviewRecordService;
+import com.yaorange.service.RedioService;
 
 
 @Controller
@@ -18,7 +25,8 @@ public class EmploymentSituationController {
 
 	@Autowired
 	private EmploymentSituationService employmentSituationService;
-	
+	@Autowired
+	private RedioService redioService;
 	@RequestMapping("/employmentSituation-list")
 	public String getPage(String name,HttpServletRequest request) {
 		request.setAttribute("name", name);
@@ -33,11 +41,14 @@ public class EmploymentSituationController {
 	}
 	
 	
+	@RequestMapping("/saveEmployMentSituation")
+	@ResponseBody
+	public DataResult saveEmployMentSituation(EmploymentSituationWithBLOBs em){
+		return employmentSituationService.savaEmploymentSituation(em);
+	}
 	
 	
-	
-	
-	
+}
 	
 	
 	/*
@@ -104,4 +115,4 @@ public class EmploymentSituationController {
 	}
 	*/
 
-}
+

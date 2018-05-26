@@ -48,6 +48,7 @@
 				class="layui-upload-file uploadrecord"> <input type="hidden"
 				name="soundrecording"  />
 		</div>
+		
 		<button lay-filter="add" lay-submit style="display: none;"></button>
 	</form>
 

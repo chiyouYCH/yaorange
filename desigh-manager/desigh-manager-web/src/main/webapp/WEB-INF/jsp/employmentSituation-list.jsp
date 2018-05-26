@@ -77,7 +77,7 @@
 			{{# layui.each(d.list, function(index, item){ }}
 			<tr>
 				<td><input type="checkbox" lay-skin="primary"></td>
-				<td>{{ item.studentno }}</td>		
+				<td>{{ item.studentid }}</td>		
 		        <td>{{ item.studentname }}</td>
 <td>{{ item.classname }}</td>
 <td>{{ item.company }}</td>
@@ -103,7 +103,7 @@
 				base: 'js/'
 			});
 
-			layui.use(['paging', 'form','laydate'], function() {
+			layui.use(['paging', 'form','laydate','upload'], function() {
 				var $ = layui.jquery,
 					paging = layui.paging(),
 					layerTips = parent.layer === undefined ? layui.layer : parent.layer, //获取父窗口的layer对象
@@ -319,10 +319,10 @@
 					if(addBoxIndex !== -1)
 						return;
 					//本表单通过ajax加载 --以模板的形式，当然你也可以直接写在页面上读取
-					$.get('user-add', null, function(form) {
+					$.get('employmentSituation-add', null, function(form) {
 						addBoxIndex = layer.open({
 							type: 1,
-							title: '添加用户',
+							title: '添加信息',
 							content: form,
 							btn: ['保存', '取消'],
 							shade: false,
@@ -346,6 +346,23 @@
 								});
 							},
 							success: function(layero, index) {
+								// 文件上传
+								layui.upload({
+									  url: '/record/upload'
+									  ,elem:'.uploadrecord'
+									  ,before: function(input){
+										//返回的参数item，即为当前的input DOM对象
+										layer.load();
+									  }
+									  ,success: function(res){
+										  layer.closeAll('loading');
+										  if (res.error == 0) {
+										 	 $("#upFile").val(res.url);
+										  }else {
+											  layer.msg('网络异常，请稍后重试！');
+										 }
+								  	  }
+								});
 								//弹出窗口成功后渲染表单
 								var form = layui.form();
 								form.render();
@@ -353,7 +370,7 @@
 									//这里可以写ajax方法提交表单
 									$.ajax({
 									   type: "POST",
-									   url: "saveUser",
+									   url: "/saveEmployMentSituation",
 									   data: data.field,
 									   dataType: "json",
 									   success: function(data){
