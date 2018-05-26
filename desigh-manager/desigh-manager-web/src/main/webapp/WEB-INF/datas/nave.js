@@ -65,11 +65,11 @@ var navs = [ {
             "href": "interviewRecord-list"
         }, {
             "title": "面试情况",
-            "icon": "fa-wrench",
+            "icon": "fa-user",
             "href": "interviewSituation-list"
         }, {
             "title": "录取情况",
-            "icon": "fa-wrench",
+            "icon": "fa-user",
             "href": "employmentSituation-list"
         }
     ]

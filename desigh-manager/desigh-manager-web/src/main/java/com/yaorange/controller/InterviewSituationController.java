@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yaorange.pojo.DataResult;
+import com.yaorange.pojo.EasyBuyResult;
+import com.yaorange.pojo.InterviewSituation;
+import com.yaorange.pojo.InterviewSituationWithBLOBs;
 import com.yaorange.service.InterviewRecordService;
 import com.yaorange.service.InterviewSituationService;
 
@@ -33,7 +36,11 @@ public class InterviewSituationController {
 		return InterviewSituationService.getInterviewSituationList(name,pageIndex, pageSize);
 	}
 	
-	
+	@RequestMapping("/saveInterviewSituation")
+	@ResponseBody
+	public EasyBuyResult saveInterviewSituation(InterviewSituationWithBLOBs interview) {
+		return InterviewSituationService.saveInterviewSituation(interview);
+	}
 	
 	
 	
