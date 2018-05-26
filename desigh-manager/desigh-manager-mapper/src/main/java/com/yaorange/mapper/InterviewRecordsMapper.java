@@ -28,5 +28,5 @@ public interface InterviewRecordsMapper {
 
     int updateByPrimaryKey(InterviewRecords record);
 
-	List<InterviewRecords> findList(String name);
+    List<InterviewRecords> findList(String name);
 }

@@ -19,41 +19,41 @@ public class InterviewRecords implements Serializable {
     private Date interviewtime;
 
     private static final long serialVersionUID = 1L;
-    
+
 
     private String studentno;
 
     private String studentname;
-    
+
     private String classname;
-    
-    
 
-	public String getStudentno() {
-		return studentno;
-	}
 
-	public void setStudentno(String studentno) {
-		this.studentno = studentno;
-	}
 
-	public String getStudentname() {
-		return studentname;
-	}
+    public String getStudentno() {
+        return studentno;
+    }
 
-	public void setStudentname(String studentname) {
-		this.studentname = studentname;
-	}
+    public void setStudentno(String studentno) {
+        this.studentno = studentno;
+    }
 
-	public String getClassname() {
-		return classname;
-	}
+    public String getStudentname() {
+        return studentname;
+    }
 
-	public void setClassname(String classname) {
-		this.classname = classname;
-	}
+    public void setStudentname(String studentname) {
+        this.studentname = studentname;
+    }
 
-	public Long getId() {
+    public String getClassname() {
+        return classname;
+    }
+
+    public void setClassname(String classname) {
+        this.classname = classname;
+    }
+
+    public Long getId() {
         return id;
     }
 

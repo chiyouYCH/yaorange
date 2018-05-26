@@ -75,32 +75,32 @@
     id, studentId, interviewCompany, interviewPlace, contacts, contactsPhone, interviewTime
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yaorange.pojo.InterviewRecordsExample" >
-    SELECT ir.*,s.studentName,s.studentNo,s.className 
-  from interview_records ir 
-LEFT JOIN student s on ir.studentId=s.id
-  <!-->    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    com.yaorange.pojo.InterviewRecordsExample
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>  <-->
+    SELECT ir.*,s.studentName,s.studentNo,s.className
+    from interview_records ir
+    LEFT JOIN student s on ir.studentId=s.id
+    <!-->    <if test="_parameter != null" >
+        <include refid="Example_Where_Clause" />
+      </if>
+      com.yaorange.pojo.InterviewRecordsExample
+      <if test="orderByClause != null" >
+        order by ${orderByClause}
+      </if>  <-->
   </select>
-  
-  
+
+
   <select id="findList" resultMap="BaseResultMap" parameterType="java.lang.String">
   SELECT ir.*,s.studentName,s.studentNo,s.className 
   from interview_records ir 
 LEFT JOIN student s on ir.studentId=s.id;
   </select>
-  
-  
-  
-  
+
+
+
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
-    <include refid="Base_Column_List" />
-    from interview_records
+    SELECT * from (SELECT ir.*,s.studentName,s.studentNo,s.className
+    from interview_records ir
+    LEFT JOIN student s on ir.studentId=s.id) ir2
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
@@ -114,10 +114,10 @@ LEFT JOIN student s on ir.studentId=s.id;
     </if>
   </delete>
   <insert id="insert" parameterType="com.yaorange.pojo.InterviewRecords" >
-    insert into interview_records (id, studentId, interviewCompany, 
-      interviewPlace, contacts, contactsPhone, 
+    insert into interview_records (studentId, interviewCompany,
+      interviewPlace, contacts, contactsPhone,
       interviewTime)
-    values (#{id,jdbcType=BIGINT}, #{studentid,jdbcType=INTEGER}, #{interviewcompany,jdbcType=VARCHAR}, 
+    values (#{studentid,jdbcType=INTEGER}, #{interviewcompany,jdbcType=VARCHAR},
       #{interviewplace,jdbcType=VARCHAR}, #{contacts,jdbcType=VARCHAR}, #{contactsphone,jdbcType=VARCHAR}, 
       #{interviewtime,jdbcType=DATE})
   </insert>
@@ -208,12 +208,12 @@ LEFT JOIN student s on ir.studentId=s.id;
   <update id="updateByExample" parameterType="map" >
     update interview_records
     set id = #{record.id,jdbcType=BIGINT},
-      studentId = #{record.studentid,jdbcType=INTEGER},
-      interviewCompany = #{record.interviewcompany,jdbcType=VARCHAR},
-      interviewPlace = #{record.interviewplace,jdbcType=VARCHAR},
-      contacts = #{record.contacts,jdbcType=VARCHAR},
-      contactsPhone = #{record.contactsphone,jdbcType=VARCHAR},
-      interviewTime = #{record.interviewtime,jdbcType=DATE}
+    studentId = #{record.studentid,jdbcType=INTEGER},
+    interviewCompany = #{record.interviewcompany,jdbcType=VARCHAR},
+    interviewPlace = #{record.interviewplace,jdbcType=VARCHAR},
+    contacts = #{record.contacts,jdbcType=VARCHAR},
+    contactsPhone = #{record.contactsphone,jdbcType=VARCHAR},
+    interviewTime = #{record.interviewtime,jdbcType=DATE}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
